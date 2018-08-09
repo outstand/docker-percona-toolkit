@@ -16,6 +16,6 @@ RUN  apt-get update \
         && apt-get install -y percona-toolkit \
         && rm -rf /var/lib/apt/lists/* 
 
-ENV PERCONA_VERSION 3.0.6
+ENV PERCONA_VERSION 3.0.11
 
 WORKDIR /
