@@ -1,18 +1,23 @@
-FROM debian:stretch-slim
+FROM debian:buster-slim
 MAINTAINER Percona Development <info@percona.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-                gnupg \
+                gnupg2 \
                 dirmngr \
                 apt-transport-https ca-certificates \
                 pwgen \
+                lsb-release \
+                wget \
         && rm -rf /var/lib/apt/lists/*
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8507EFA5
+RUN wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb \
+      && dpkg -i percona-release_latest.generic_all.deb \
+      && percona-release enable tools release
 
-RUN echo 'deb https://repo.percona.com/apt stretch main' > /etc/apt/sources.list.d/percona.list
+# Uncomment to list package versions
+# RUN apt-get update && apt-cache madison percona-toolkit
 
-ENV PERCONA_VERSION 3.0.13-1.stretch
+ENV PERCONA_VERSION 3.1.0-2.buster
 
 RUN  apt-get update \
         && apt-get install -y percona-toolkit=${PERCONA_VERSION} \
