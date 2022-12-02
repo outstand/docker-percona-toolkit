@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,7 +19,7 @@ RUN set -eux; \
       apt-get clean; \
       rm -f /var/lib/apt/lists/*_*
 
-ARG PERCONA_VERSION=3.3.1-1.buster
+ARG PERCONA_VERSION=3.5.0-5.bullseye
 
 RUN set -eux; \
       \
